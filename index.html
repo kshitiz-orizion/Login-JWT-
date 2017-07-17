@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<ul class="nav nav-pills">
+	  
+	  <li role="presentation"><a ui-sref="login">Login</a></li>
+	  <li role="presentation"><a ui-sref="register">Register</a></li>
+	</ul>
+  <div class="jumbotron">
+	<ui-view></ui-view>
+  </div>
+</body>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript">
+var app = angular.module('myApp',["ui.router"]);
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
+  app.config(['$stateProvider',function ($stateProvider) {
+
+      $stateProvider
+      .state('login', {
+        url:'/login',
+        templateUrl: '/login.html',
+        controller:'loginCtrl'
+      })
+      .state('register',{
+        url:'/register',
+        templateUrl: '/register.html',
+        controller:'registerCtrl'
+      });
+  }]);
+  app.controller('registerCtrl',['$scope','$http','$location','$window',function($scope,$http,$location,$window){
+        $scope.registernow=function(){
+        console.log($scope.register);
+        $http.post('http://localhost:3000/register',$scope.register);
+        $window.location.reload();
+         alert('Successfully Applied');
+    };
+}]); 
+   app.controller('loginCtrl',['$scope','$http','$location','$window',function($scope,$http,$location,$window){
+        $scope.login=function(){
+        $http.post('http://localhost:3000/authenticate',$scope.login1).then(function(data){
+          $window.localStorage.setItem('token',data.data.token);
+          return $window.localStorage.getItem('token');
+          console.log(token);
+          $window.location.reload();
+         alert('User Authenticated');
+         });
+    };
+}]);
+</script>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "PROECTS",
+  "authors": [
+    "kshitiz-orizion <kshitiz.orizion@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "jquery": "^3.2.1",
+    "angular-ui-router": "^1.0.5"
+  }
+}
